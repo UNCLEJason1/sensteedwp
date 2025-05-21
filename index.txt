@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的工作台</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#4F46E5',
+                        secondary: '#6B7280'
+                    },
+                    borderRadius: {
+                        'none': '0px',
+                        'sm': '4px',
+                        DEFAULT: '8px',
+                        'md': '12px',
+                        'lg': '16px',
+                        'xl': '20px',
+                        '2xl': '24px',
+                        '3xl': '32px',
+                        'full': '9999px',
+                        'button': '8px'
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <style>
+        :where([class^="ri-"])::before {
+            content: "\f3c2";
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #f9fafb;
+        }
+
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        .btn-hover {
+            transition: all 0.3s ease;
+        }
+
+        .btn-hover:hover {
+            filter: brightness(0.9);
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <div class="min-w-full md:min-w-[1024px]">
+        <header class="bg-white shadow-sm">
+            <div class="container mx-auto px-4 py-4">
+                <h1 class="text-xl font-bold text-gray-800">我的工作台</h1>
+            </div>
+        </header>
+        <div class="container mx-auto px-4 py-6">
+            <!-- 企业文化 Banner -->
+            <div class="bg-white rounded-lg shadow-sm overflow-hidden mb-6">
+                <div class="h-[320px] relative bg-gradient-to-r from-blue-600 to-blue-800 flex items-center">
+                    <div class="absolute inset-0">
+                        <img src="https://picsum.photos/1200/320" class="w-full h-full object-cover opacity-20" alt="Banner">
+                    </div>
+                    <div class="relative container mx-auto px-8">
+                        <h2 class="text-4xl font-bold text-white mb-4">山子制造，供应全球</h2>
+                        <p class="text-xl text-blue-100 max-w-2xl">致力于打造世界一流的智能制造企业，以科技创新引领行业发展</p>
+                    </div>
+                </div>
+            </div>
+            <!-- 数据驾驶舱 -->
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-6 mb-6">
+                <div class="bg-white p-6 rounded-lg shadow-sm col-span-1 md:col-span-2">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-semibold text-gray-800">销售趋势</h3>
+                        <div class="flex items-center space-x-2">
+                            <span class="text-sm text-gray-500">最近7天</span>
+                        </div>
+                    </div>
+                    <div id="salesChart" class="w-full h-[240px]"></div>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-sm">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-semibold text-gray-800">生产数据</h3>
+                        <span class="text-sm text-gray-500">实时</span>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-600">生产完成率</span>
+                            <span class="text-2xl font-bold text-blue-600">98.5%</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-600">设备利用率</span>
+                            <span class="text-2xl font-bold text-green-600">92.3%</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-600">产品合格率</span>
+                            <span class="text-2xl font-bold text-indigo-600">99.9%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-sm">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-semibold text-gray-800">订单统计</h3>
+                        <span class="text-sm text-gray-500">本月</span>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-600">订单总数</span>
+                            <span class="text-2xl font-bold text-orange-600">2,321</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-600">完成订单</span>
+                            <span class="text-2xl font-bold text-teal-600">2,156</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-600">进行中</span>
+                            <span class="text-2xl font-bold text-purple-600">165</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-sm">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-semibold text-gray-800">库存监控</h3>
+                        <span class="text-sm text-gray-500">实时</span>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-600">原材料库存</span>
+                            <span class="text-2xl font-bold text-red-600">78%</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-600">成品库存</span>
+                            <span class="text-2xl font-bold text-yellow-600">85%</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-600">周转率</span>
+                            <span class="text-2xl font-bold text-cyan-600">12.5</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 日常办公应用 & 企业动态 -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                <div class="bg-white p-6 rounded-lg shadow-sm col-span-1 md:col-span-2">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-semibold text-gray-800">日常办公</h3>
+                        <a href="#" class="text-sm text-primary">查看全部</a>
+                    </div>
+                    <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+                        <a href="http://oa.sensteed.com:82/wui/index.html#/main/portal/portal-3-5?menuIds=0,3&menuPathIds=0,3&_key=1peqso&em_auth_userid=18859&outsysid=cdf97182f57244b9927a4d83a46d0a65&em_client_lang=zh&em_client_type=pc&em_auth_code=637ea063-44c7-4302-9588-b174daabc6cf" class="group">
+                            <div class="bg-blue-50 rounded-lg p-4 flex flex-col items-center transition-all group-hover:shadow-md btn-hover">
+                                <div class="w-12 h-12 flex items-center justify-center text-blue-600 mb-2">
+                                    <i class="ri-calendar-check-line ri-2x"></i>
+                                </div>
+                                <span class="text-sm text-gray-700">考勤打卡</span>
+                            </div>
+                        </a>
+                        <a href="#" class="group">
+                            <div class="bg-purple-50 rounded-lg p-4 flex flex-col items-center transition-all group-hover:shadow-md btn-hover">
+                                <div class="w-12 h-12 flex items-center justify-center text-purple-600 mb-2">
+                                    <i class="ri-file-list-3-line ri-2x"></i>
+                                </div>
+                                <span class="text-sm text-gray-700">OA 系统</span>
+                            </div>
+                        </a>
+                        <a href="https://applink.feishu.cn/T8Wb2JZ1EnGa" class="group">
+                            <div class="bg-green-50 rounded-lg p-4 flex flex-col items-center transition-all group-hover:shadow-md btn-hover">
+                                <div class="w-12 h-12 flex items-center justify-center text-green-600 mb-2">
+                                    <i class="ri-presentation-line ri-2x"></i>
+                                </div>
+                                <span class="text-sm text-gray-700">智能汇报</span>
+                            </div>
+                        </a>
+                        <a href="#" class="group">
+                            <div class="bg-orange-50 rounded-lg p-4 flex flex-col items-center transition-all group-hover:shadow-md btn-hover">
+                                <div class="w-12 h-12 flex items-center justify-center text-orange-600 mb-2">
+                                    <i class="ri-plane-line ri-2x"></i>
+                                </div>
+                                <span class="text-sm text-gray-700">差旅申请</span>
+                            </div>
+                        </a>
+                        <a href="#" class="group">
+                            <div class="bg-cyan-50 rounded-lg p-4 flex flex-col items-center transition-all group-hover:shadow-md btn-hover">
+                                <div class="w-12 h-12 flex items-center justify-center text-cyan-600 mb-2">
+                                    <i class="ri-money-cny-circle-line ri-2x"></i>
+                                </div>
+                                <span class="text-sm text-gray-700">报销管理</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg shadow-sm">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-semibold text-gray-800">企业动态</h3>
+                        <a href="#" class="text-sm text-primary">更多</a>
+                    </div>
+                    <div class="space-y-4">
+                        <a href="#" class="block group">
+                            <div class="flex items-start space-x-3 p-3 rounded-lg transition-all group-hover:bg-gray-50 btn-hover">
+                                <div class="w-12 h-12 rounded-lg bg-red-50 flex items-center justify-center flex-shrink-0">
+                                    <i class="ri-article-line text-red-500 ri-lg"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-sm font-medium text-gray-800 mb-1">关于开展 2025 年度安全生产月活动的通知</h4>
+                                    <p class="text-xs text-gray-500">2025-05-07 10:30</p>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="#" class="block group">
+                            <div class="flex items-start space-x-3 p-3 rounded-lg transition-all group-hover:bg-gray-50 btn-hover">
+                                <div class="w-12 h-12 rounded-lg bg-blue-50 flex items-center justify-center flex-shrink-0">
+                                    <i class="ri-file-paper-2-line text-blue-500 ri-lg"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-sm font-medium text-gray-800 mb-1">公司荣获"2024年度智能制造示范企业"称号</h4>
+                                    <p class="text-xs text-gray-500">2025-05-06 16:45</p>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="#" class="block group">
+                            <div class="flex items-start space-x-3 p-3 rounded-lg transition-all group-hover:bg-gray-50 btn-hover">
+                                <div class="w-12 h-12 rounded-lg bg-green-50 flex items-center justify-center flex-shrink-0">
+                                    <i class="ri-government-line text-green-500 ri-lg"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-sm font-medium text-gray-800 mb-1">关于印发《员工培训管理制度》的通知</h4>
+                                    <p class="text-xs text-gray-500">2025-05-05 14:20</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <main class="container mx-auto px-4 py-6">
+                <!-- 系统模块导航 -->
+                <div class="bg-white rounded p-6 mb-6">
+                    <div class="flex space-x-4 overflow-x-auto pb-4">
+                        <!-- 系统模块卡片 -->
+                        <div class="relative flex-shrink-0">
+                            <div class="w-20 h-20 bg-indigo-100 rounded flex items-center justify-center text-indigo-800 font-semibold shadow-sm">
+                                SRM
+                            </div>
+                            <div class="absolute -top-1 -right-1 w-5 h-5 bg-red-500 rounded-full flex items-center justify-center text-white text-xs">
+                                7
+                            </div>
+                        </div>
+                        <div class="relative flex-shrink-0">
+                            <div class="w-20 h-20 bg-blue-600 rounded flex items-center justify-center text-white font-semibold shadow-sm">
+                                SAP
+                            </div>
+                            <div class="absolute -top-1 -right-1 w-5 h-5 bg-red-500 rounded-full flex items-center justify-center text-white text-xs">
+                                7
+                            </div>
+                        </div>
+                        <div class="relative flex-shrink-0">
+                            <div class="w-20 h-20 bg-red-500 rounded flex items-center justify-center text-white font-semibold shadow-sm">
+                                OA
+                            </div>
+                            <div class="absolute -top-1 -right-1 w-5 h-5 bg-red-500 rounded-full flex items-center justify-center text-white text-xs">
+                                2
+                            </div>
+                        </div>
+                        <div class="relative flex-shrink-0">
+                            <div class="w-20 h-20 bg-pink-200 rounded flex items-center justify-center text-pink-800 font-semibold shadow-sm">
+                                HR
+                            </div>
+                            <div class="absolute -top-1 -right-1 w-5 h-5 bg-red-500 rounded-full flex items-center justify-center text-white text-xs">
+                                4
+                            </div>
+                        </div>
+                        <div class="relative flex-shrink-0">
+                            <div class="w-20 h-20 bg-purple-500 rounded flex items-center justify-center text-white font-semibold shadow-sm">
+                                资金
+                            </div>
+                            <div class="absolute -top-1 -right-1 w-5 h-5 bg-red-500 rounded-full flex items-center justify-center text-white text-xs">
+                                2
+                            </div>
+                        </div>
+                        <div class="relative flex-shrink-0">
+                            <div class="w-20 h-20 bg-blue-600 rounded flex items-center justify-center text-white font-semibold shadow-sm">
+                                MES
+                            </div>
+                            <div class="absolute -top-1 -right-1 w-5 h-5 bg-red-500 rounded-full flex items-center justify-center text-white text-xs">
+                                7
+                            </div>
+                        </div>
+                        <div class="w-20 h-20 bg-indigo-100 rounded flex items-center justify-center text-indigo-400 font-semibold shadow-sm flex-shrink-0">
+                        </div>
+                        <div class="w-20 h-20 bg-indigo-100 rounded flex items-center justify-center text-indigo-400 font-semibold shadow-sm flex-shrink-0">
+                        </div>
+                        <div class="w-20 h-20 bg-orange-100 rounded flex items-center justify-center text-orange-400 font-semibold shadow-sm flex-shrink-0">
+                        </div>
+                        <div class="w-20 h-20 bg-orange-100 rounded flex items-center justify-center text-orange-400 font-semibold shadow-sm flex-shrink-0">
+                        </div>
+                    </div>
+                </div>
+                <!-- 消息列表区域 -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                    <!-- 第一栏 - 橙色边框 -->
+                    <div class="bg-white rounded shadow-sm border-t-4 border-orange-400">
+                        <div class="flex border-b">
+                            <div class="relative flex items-center">
+                                <div class="absolute -top-3 -right-3 w-5 h-5 bg-red-500 rounded-full flex items-center justify-center text-white text-xs">
+                                    7
+                                </div>
+                                <span class="px-4 py-2 text-orange-500 text-sm font-medium">采购通知</span>
+                            </div>
+                            <div class="flex ml-auto">
+                                <button class="px-4 py-2 text-sm bg-orange-50 text-orange-600 font-medium !rounded-button whitespace-nowrap btn-hover">待办</button>
+                                <button class="px-4 py-2 text-sm text-gray-500 font-medium !rounded-button whitespace-nowrap btn-hover">已办</button>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <div class="bg-orange-50 rounded p-3 mb-3">
+                                <p class="text-sm text-gray-800">采购申请单 #PR20250507-001 待审批</p>
+                                <p class="text-xs text-gray-500 mt-1">来自：生产部 - 王工</p>
+                            </div>
+                            <div class="bg-orange-50 rounded p-3 mb-3">
+                                <p class="text-sm text-gray-800">物料采购价格变更通知 #PC20250507-003</p>
+                                <p class="text-xs text-gray-500 mt-1">来自：采购部 - 李经理</p>
+                            </div>
+                            <div class="bg-orange-50 rounded p-3 mb-3">
+                                <p class="text-sm text-gray-800">供应商资质审核 #SQ20250507-005 待确认</p>
+                                <p class="text-xs text-gray-500 mt-1">来自：质量部 - 张主管</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 第二栏 - 绿色边框 -->
+                    <div class="bg-white rounded shadow-sm border-t-4 border-green-400">
+                        <div class="flex border-b">
+                            <div class="relative flex items-center">
+                                <div class="absolute -top-3 -right-3 w-5 h-5 bg-red-500 rounded-full flex items-center justify-center text-white text-xs">
+                                    4
+                                </div>
+                                <span class="px-4 py-2 text-green-500 text-sm font-medium">财务通知</span>
+                            </div>
+                            <div class="flex ml-auto">
+                                <button class="px-4 py-2 text-sm bg-red-100 text-red-600 font-medium !rounded-button whitespace-nowrap btn-hover">未阅</button>
+                                <button class="px-4 py-2 text-sm text-gray-500 font-medium !rounded-button whitespace-nowrap btn-hover">已阅</button>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <div class="bg-green-50 rounded p-3 mb-3">
+                                <p class="text-sm text-gray-800">费用报销单 #EX20250507-002 已审批通过</p>
+                                <p class="text-xs text-gray-500 mt-1">来自：财务部 - 刘会计</p>
+                            </div>
+                            <div class="bg-green-50 rounded p-3 mb-3">
+                                <p class="text-sm text-gray-800">5 月份工资条已发放，请查收</p>
+                                <p class="text-xs text-gray-500 mt-1">来自：人事部 - 薪酬管理</p>
+                            </div>
+                            <div class="bg-green-50 rounded p-3 mb-3">
+                                <p class="text-sm text-gray-800">项目预算调整通知 #BG20250507-008</p>
+                                <p class="text-xs text-gray-500 mt-1">来自：财务部 - 预算管理</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 第三栏 - 灰色边框 -->
+                    <div class="bg-white rounded shadow-sm border-t-4 border-gray-400">
+                        <div class="flex border-b">
+                            <div class="relative flex items-center">
+                                <div class="absolute -top-3 -right-3 w-5 h-5 bg-red-500 rounded-full flex items-center justify-center text-white text-xs">
+                                    2
+                                </div>
+                                <span class="px-4 py-2 text-gray-500 text-sm font-medium">系统公告</span>
+                            </div>
+                            <div class="flex ml-auto">
+                                <button class="px-4 py-2 text-sm bg-red-100 text-red-600 font-medium !rounded-button whitespace-nowrap btn-hover">未阅</button>
+                                <button class="px-4 py-2 text-sm text-gray-500 font-medium !rounded-button whitespace-nowrap btn-hover">已阅</button>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <div class="bg-gray-100 rounded p-3 mb-3">
+                                <p class="text-sm text-gray-800">系统升级通知：SAP 系统将于 5 月 10 日进行维护</p>
+                                <p class="text-xs text-gray-500 mt-1">来自：IT 部门 - 系统管理员</p>
+                            </div>
+                            <div class="bg-gray-100 rounded p-3 mb-3">
+                                <p class="text-sm text-gray-800">新版 OA 系统培训安排，请按时参加</p>
+                                <p class="text-xs text-gray-500 mt-1">来自：IT 部门 - 培训专员</p>
+                            </div>
+                            <div class="bg-gray-100 rounded p-3 mb-3">
+                                <p class="text-sm text-gray-800">信息安全月活动通知，请所有员工参与</p>
+                                <p class="text-xs text-gray-500 mt-1">来自：安全部 - 信息安全主管</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 第四栏 - 红色边框 -->
+                    <div class="bg-white rounded shadow-sm border-t-4 border-red-500">
+                        <div class="flex border-b">
+                            <div class="relative flex items-center">
+                                <div class="absolute -top-3 -right-3 w-5 h-5 bg-red-500 rounded-full flex items-center justify-center text-white text-xs">
+                                    5
+                                </div>
+                                <span class="px-4 py-2 text-red-500 text-sm font-medium">紧急事项</span>
+                            </div>
+                            <div class="flex ml-auto">
+                                <button class="px-4 py-2 text-sm bg-red-100 text-red-600 font-medium !rounded-button whitespace-nowrap btn-hover">未阅</button>
+                                <button class="px-4 py-2 text-sm text-gray-500 font-medium !rounded-button whitespace-nowrap btn-hover">已阅</button>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <div class="bg-red-50 rounded p-3 mb-3">
+                                <p class="text-sm text-gray-800 font-medium">紧急：生产线 A 设备故障，需立即处理</p>
+                                <p class="text-xs text-gray-500 mt-1">来自：生产部 - 设备管理</p>
+                            </div>
+                            <div class="bg-red-50 rounded p-3 mb-3">
+                                <p class="text-sm text-gray-800 font-medium">重要客户投诉 #CM20250507-009，请优先处理</p>
+                                <p class="text-xs text-gray-500 mt-1">来自：客服部 - 投诉处理</p>
+                            </div>
+                            <div class="bg-red-50 rounded p-3 mb-3">
+                                <p class="text-sm text-gray-800 font-medium">安全事故预警：车间 B 区域需立即检查</p>
+                                <p class="text-xs text-gray-500 mt-1">来自：安全部 - 安全主管</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const salesChart = echarts.init(document.getElementById('salesChart'));
+                const salesOption = {
+                    animation: false,
+                    grid: {
+                        top: 10,
+                        right: 10,
+                        bottom: 20,
+                        left: 40
+                    },
+                    xAxis: {
+                        type: 'category',
+                        data: ['5-1', '5-2', '5-3', '5-4', '5-5', '5-6', '5-7'],
+                        axisLine: {
+                            lineStyle: {
+                                color: '#E5E7EB'
+                            }
+                        },
+                        axisLabel: {
+                            color: '#1F2937'
+                        }
+                    },
+                    yAxis: {
+                        type: 'value',
+                        axisLine: {
+                            show: false
+                        },
+                        axisLabel: {
+                            color: '#1F2937'
+                        },
+                        splitLine: {
+                            lineStyle: {
+                                color: '#F3F4F6'
+                            }
+                        }
+                    },
+                    series: [
+                        {
+                            name: '销售额',
+                            type: 'line',
+                            smooth: true,
+                            data: [150, 230, 224, 218, 135, 147, 260],
+                            itemStyle: {
+                                color: 'rgba(87, 181, 231, 1)'
+                            },
+                            areaStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                    {
+                                        offset: 0,
+                                        color: 'rgba(87, 181, 231, 0.3)'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: 'rgba(87, 181, 231, 0.1)'
+                                    }
+                                ])
+                            },
+                            symbol: 'none'
+                        },
+                        {
+                            name: '采购额',
+                            type: 'line',
+                            smooth: true,
+                            data: [120, 182, 191, 234, 190, 130, 220],
+                            itemStyle: {
+                                color: 'rgba(141, 211, 199, 1)'
+                            },
+                            areaStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                    {
+                                        offset: 0,
+                                        color: 'rgba(141, 211, 199, 0.3)'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: 'rgba(141, 211, 199, 0.1)'
+                                    }
+                                ])
+                            },
+                            symbol: 'none'
+                        }
+                    ]
+                };
+                salesChart.setOption(salesOption);
+
+                window.addEventListener('resize', function () {
+                    salesChart.resize();
+                });
+
+                const updateNumbers = () => {
+                    const elements = document.querySelectorAll('.text-2xl.font-bold');
+                    elements.forEach(element => {
+                        const currentValue = parseFloat(element.textContent);
+                        const newValue = currentValue + (Math.random() - 0.5) * 2;
+                        if (element.textContent.includes('%')) {
+                            element.textContent = newValue.toFixed(1) + '%';
+                        } else if (Number.isInteger(currentValue)) {
+                            element.textContent = Math.round(newValue);
+                        } else {
+                            element.textContent = newValue.toFixed(1);
+                        }
+                    });
+                };
+                setInterval(updateNumbers, 5000);
+
+                // 待办/已办切换逻辑
+                const tabButtons = document.querySelectorAll('.flex.ml-auto button');
+                tabButtons.forEach(button => {
+                    button.addEventListener('click', function () {
+                        const parent = this.parentElement;
+                        parent.querySelectorAll('button').forEach(btn => {
+                            btn.classList.remove('bg-orange-50', 'text-orange-600', 'bg-red-100', 'text-red-600');
+                            btn.classList.add('text-gray-500');
+                        });
+                        if (this.textContent.includes('待办') || this.textContent.includes('未阅')) {
+                            if (this.closest('.border-orange-400')) {
+                                this.classList.add('bg-orange-50', 'text-orange-600');
+                            } else {
+                                this.classList.add('bg-red-100', 'text-red-600');
+                            }
+                        } else {
+                            this.classList.add('text-gray-500');
+                        }
+                    });
+                });
+            });
+        </script>
+    </body>
+</html>
+    
